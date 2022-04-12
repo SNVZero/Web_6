@@ -1,5 +1,5 @@
 <?php
-require "../connect/connection.php"
+require "../connect/connection.php";
 if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW']))
 {
     $login = $_SERVER['PHP_AUTH_USER'];
