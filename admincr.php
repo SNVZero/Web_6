@@ -1,5 +1,5 @@
 <?php
-
+if ( $_SERVER['REQUEST_METHOD'] == 'GET' )){
 $login = 'admin';
 $password = 'igod';
 $hash = password_hash($password,PASSWORD_DEFAULT);
@@ -11,4 +11,5 @@ $db = new PDO('mysql:host=localhost;dbname=u46878', $user, $pass, array(PDO::ATT
 
 $stmt = $db->prepare("INSERT INTO admin SET login = ?, password = ?");
 $stmt -> execute(array($login,$hash));
+}
 ?>
