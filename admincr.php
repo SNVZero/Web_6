@@ -1,5 +1,5 @@
 <?php
-if ( $_SERVER['REQUEST_METHOD'] == 'GET' )){
+if ($_SERVER['REQUEST_METHOD'] == 'GET' ){
 $login = 'admin';
 $password = 'igod';
 $hash = password_hash($password,PASSWORD_DEFAULT);
