@@ -20,3 +20,10 @@ CREATE TABLE USERS (
     -> PRIMARY KEY (id),
     -> FOREIGN KEY (human_id) REFERENCES USERS (Id)
     -> );
+
+ CREATE TABLE admin (
+    -> id int(10) unsigned NOT NULL AUTO_INCREMENT,
+    -> login varchar(128) NOT NULL DEFAULT 'login',
+    -> password varchar(128) NOT NULL DEFAULT 'pass',
+    -> PRIMARY KEY (id)
+    -> );
