@@ -5,7 +5,7 @@ if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW']))
     $login = $_SERVER['PHP_AUTH_USER'];
     $passsword = $_SERVER['PHP_AUTH_PW'];
 
-    $check_amin = mysqli_query($connect, "SELECT * FROM admin WHERE login = '$login'");
+    $check_admin = mysqli_query($connect, "SELECT * FROM admin WHERE login = '$login'");
 
     if(mysqli_num_rows($check_admin) > 0){
         $admin = mysqli_fetch_assoc($check_admin);
