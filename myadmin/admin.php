@@ -3,7 +3,7 @@ require "../connect/connection.php";
 if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW']))
 {
     $login = $_SERVER['PHP_AUTH_USER'];
-    $passsword = $_SERVER['PHP_AUTH_PW'];
+    $password = $_SERVER['PHP_AUTH_PW'];
 
     $check_admin = mysqli_query($connect, "SELECT * FROM admin WHERE login = '$login'");
 
