@@ -10,4 +10,5 @@ $db = new PDO('mysql:host=localhost;dbname=u46878', $user, $pass, array(PDO::ATT
 
 
 $stmt = $db->prepare("INSERT INTO admin SET login = ?, password = ?");
-$stmt -> execute(array($login,$hash);
+$stmt -> execute(array($login,$hash));
+?>
