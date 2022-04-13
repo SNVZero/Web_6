@@ -16,7 +16,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     if(isset($_POST['delete_user'])){
         $count --;
-
+        $inc =$count;
         $user_id =  mysqli_real_escape_string($connect ,$_POST['select_user']);
 
         $sql = "DELETE FROM users WHERE id = '$user_id'";
@@ -25,10 +25,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $sql = "DELETE FROM super_power WHERE id = '$user_id'";
         mysqli_query($connect, $sql);
 
-        $sql = "ALTER TABLE users AUTO_INCREMENT = $count";
+        $sql = "ALTER TABLE users AUTO_INCREMENT = '$inc'";
         mysqli_query($connect, $sql);
 
-        $sql = "ALTER TABLE super_power AUTO_INCREMENT = $count";
+        $sql = "ALTER TABLE super_power AUTO_INCREMENT = '$inc'";
         mysqli_query($connect, $sql);
 
 
@@ -44,8 +44,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         }
         for($index=$count;$index>0;$index--){
             try{
-            $stmt = $db->prepare("UPDATE super_power SET id = ? WHERE id = ?");
-            $stmt -> execute(array($index,$index+1));
+            $stmt = $db->prepare("UPDATE super_power SET id = ?, human_id =? WHERE id = ?");
+            $stmt -> execute(array($index,$index,$index+1));
             }catch(PDOException $e){
         print('Error : ' . $e->getMessage());
         exit();
