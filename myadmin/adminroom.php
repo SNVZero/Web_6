@@ -25,10 +25,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $sql = "DELETE FROM super_power WHERE id = '$user_id'";
         mysqli_query($connect, $sql);
 
-        $sql = "ALTER TABLE users AUTO_INCREMENT = '$count'";
+        $sql = "ALTER TABLE users AUTO_INCREMENT = $count";
         mysqli_query($connect, $sql);
 
-        $sql = "ALTER TABLE super_power AUTO_INCREMENT = '$count'";
+        $sql = "ALTER TABLE super_power AUTO_INCREMENT = $count";
         mysqli_query($connect, $sql);
 
 
