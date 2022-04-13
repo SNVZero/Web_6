@@ -2,7 +2,7 @@
 
 if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])){
     require "../connect/connection.php";
-//Проверка на то был ли совершен вход в админ аккаунт,кнопка переправляющая на вход, кнопка выхода с аккаунта админа и функционал комнаты админа
+// функционал комнаты админа, разобраться с автоинкерментом для этого изменить структуру таблицы  чтоб она брала максимальный столбец и записывала его в id
 
 $user = 'u46878';
 $pass = '2251704';
@@ -16,7 +16,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     if(isset($_POST['delete_user'])){
         $count --;
-        $inc =$count -1;
+        $inc =$count;
         $user_id =  mysqli_real_escape_string($connect ,$_POST['select_user']);
 
         $sql = "DELETE FROM users WHERE id = '$user_id'";
@@ -24,14 +24,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
         $sql = "DELETE FROM super_power WHERE id = '$user_id'";
         mysqli_query($connect, $sql);
-
-        $sql = "ALTER TABLE users AUTO_INCREMENT = '$inc'";
-        mysqli_query($connect, $sql);
-
-        $sql = "ALTER TABLE super_power AUTO_INCREMENT = '$inc'";
-        mysqli_query($connect, $sql);
-
-
 
         for($index=$count;$index>0;$index--){
             try{
@@ -49,8 +41,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             }catch(PDOException $e){
         print('Error : ' . $e->getMessage());
         exit();
-    }
+            }
         }
+
+        $sql = "ALTER TABLE users AUTO_INCREMENT = '$inc'";
+        mysqli_query($connect, $sql);
+
+        $sql = "ALTER TABLE super_power AUTO_INCREMENT = '$inc'";
+        mysqli_query($connect, $sql);
+
+
+
+
     }
 }
 ?>
