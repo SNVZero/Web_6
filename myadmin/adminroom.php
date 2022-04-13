@@ -45,7 +45,7 @@ $count = (int) $row[0];
                 for($index =1 ;$index <= $count;$index++){
                     $check_user = mysqli_query($connect, "SELECT * FROM users WHERE id = $index");
                     $user = mysqli_fetch_assoc($check_user);
-                    print("<option>" ."id : ". $user['id'] . "Имя : " . $user['name'] . "Почта : ". $user['mail'] . "Дата рождения : ". $user['date'] . "Пол : ". $user['gender'] . "Кол. конечностей : ". $user['limbs']  ."</option>");
+                    print("<option>" ."id : ". $user['id'] . " Имя : " . $user['name'] . " Почта : ". $user['mail'] . " Дата рождения : ". $user['date'] . " Пол : ". $user['gender'] . " Кол. конечностей : ". $user['limbs']  ."</option>");
                 }
                 ?>
             </select>
@@ -60,6 +60,6 @@ $count = (int) $row[0];
 <?php
 }
 else
-header('Location: index.php')
+header('Location: ../index.php')
 
 ?>
