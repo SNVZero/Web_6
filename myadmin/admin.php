@@ -12,6 +12,7 @@ if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW']))
         if(password_verify($password,$admin['password'])){
             header('Location: adminroom.php');
         }
+         else  die("Неверная комбинация имя пользователя - пароль");
     }
     else  die("Неверная комбинация имя пользователя - пароль");
 }
