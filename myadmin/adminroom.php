@@ -1,6 +1,5 @@
 <?php
 
-
 if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])){
     require "../connect/connection.php";
 //Проверка на то был ли совершен вход в админ аккаунт,кнопка переправляющая на вход, кнопка выхода с аккаунта админа и функционал комнаты админа
@@ -12,6 +11,37 @@ $db = new PDO('mysql:host=localhost;dbname=u46878', $user, $pass, array(PDO::ATT
 $res = $db->query("SELECT max(id) FROM users");
 $row = $res->fetch();
 $count = (int) $row[0];
+
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+    if(isset($_POST['delete_user'])){
+        $count --;
+
+        $user_id = $_POST['select_user'];
+
+        $stmt = $db->prepare("DELETE FROM users WHERE id = ?");
+        $stmt -> execute(array($user_id));
+
+        $stmt = $db->prepare("DELETE FROM super_power WHERE id = ?");
+        $stmt -> execute(array($user_id));
+
+        $stmt = $db->prepare("ALTER TABLE users AUTO_INCREMENT =?");
+        $stmt -> execute(array($count));
+
+
+        $stmt = $db->prepare("ALTER TABLE super_power AUTO_INCREMENT =?");
+        $stmt -> execute(array($count));
+
+        for($index=$count;$index>0;$index--){
+            $stmt = $db->prepare("UPDATE users SET id = ? WHERE id = ?");
+            $stmt -> execute(array($count,$count+1));
+        }
+        for($index=$count;$index>0;$index--){
+            $stmt = $db->prepare("UPDATE super_power SET id = ? WHERE id = ?");
+            $stmt -> execute(array($count,$count+1));
+        }
+    }
+}
 ?>
 
 <!Doctype html>
@@ -32,23 +62,27 @@ $count = (int) $row[0];
             <div class="top">
                 <div class="content"></div>
                 <div class="exit">
-                    <a class ="quit" href="#">Выйти</a>
+                    <a class ="quit" href="../index.php">Выйти</a>
                 </div>
             </div>
         </header>
     </div>
     <div class="wrapper">
         <div class="main_content">
-            <select name="select_users" id="selector">
-            <option selected disabled>Выбрать пользователя</option>
-                <?php
-                for($index =1 ;$index <= $count;$index++){
-                    $check_user = mysqli_query($connect, "SELECT * FROM users WHERE id = $index");
-                    $user = mysqli_fetch_assoc($check_user);
-                    print("<option>" ."id : ". $user['id'] . " Имя : " . $user['name'] . " Почта : ". $user['mail'] . " Дата рождения : ". $user['date'] . " Пол : ". $user['gender'] . " Кол. конечностей : ". $user['limbs']  ."</option>");
-                }
-                ?>
-            </select>
+            <form method="POST" action="adminroom.php">
+                <select name="select_user" id="selector">
+                <option selected disabled>Выбрать пользователя</option>
+                    <?php
+                    for($index =1 ;$index <= $count;$index++){
+                        $check_user = mysqli_query($connect, "SELECT * FROM users WHERE id = $index");
+                        $user = mysqli_fetch_assoc($check_user);
+                        print("<option>" ."id : ". $user['id'] . " Имя : " . $user['name'] . " Почта : ". $user['mail'] . " Дата рождения : ". $user['date'] . " Пол : ". $user['gender'] . " Кол. конечностей : ". $user['limbs']  ."</option>");
+                    }
+                    ?>
+                </select>
+                <button name ="delete_user">Удалить пользователя</button>
+            </form>
+
 
         </div>
     </div>
