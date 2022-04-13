@@ -17,38 +17,20 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     if(isset($_POST['delete_user'])){
         $count --;
 
-        $user_id = $_POST['select_user'];
-        try{
-        $stmt = $db->prepare("DELETE FROM users WHERE id = ?");
-        $stmt -> execute(array($user_id));
-        }catch(PDOException $e){
-            print('Error : ' . $e->getMessage());
-            exit();
-        }
+        $user_id =  mysqli_real_escape_string($connect ,$_POST['select_user']);
 
-        try{
-        $stmt = $db->prepare("DELETE FROM super_power WHERE id = ?");
-        $stmt -> execute(array($user_id));
-        }catch(PDOException $e){
-            print('Error : ' . $e->getMessage());
-            exit();
-        }
+        $sql = "DELETE FROM users WHERE id = '$user_id'";
+        mysqli_query($connect, $sql);
 
-        try{
-        $stmt = $db->prepare("ALTER TABLE users AUTO_INCREMENT = ?");
-        $stmt -> execute(array($count));
-        }catch(PDOException $e){
-            print('Error : ' . $e->getMessage());
-            exit();
-        }
+        $sql = "DELETE FROM super_power WHERE id = '$user_id'";
+        mysqli_query($connect, $sql);
 
-        try{
-        $stmt = $db->prepare("ALTER TABLE super_power AUTO_INCREMENT =?");
-        $stmt -> execute(array($count));
-        }catch(PDOException $e){
-            print('Error : ' . $e->getMessage());
-            exit();
-        }
+        $sql = "ALTER TABLE users AUTO_INCREMENT = '$count'";
+        mysqli_query($connect, $sql);
+
+        $sql = "ALTER TABLE super_power AUTO_INCREMENT = '$count'";
+        mysqli_query($connect, $sql);
+
 
 
         for($index=$count;$index>0;$index--){
@@ -65,9 +47,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $stmt = $db->prepare("UPDATE super_power SET id = ? WHERE id = ?");
             $stmt -> execute(array($index,$index+1));
             }catch(PDOException $e){
-                print('Error : ' . $e->getMessage());
-                exit();
-            }
+        print('Error : ' . $e->getMessage());
+        exit();
+    }
         }
     }
 }
