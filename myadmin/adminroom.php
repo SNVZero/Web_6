@@ -34,11 +34,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
         for($index=$count;$index>0;$index--){
             $stmt = $db->prepare("UPDATE users SET id = ? WHERE id = ?");
-            $stmt -> execute(array($count,$count+1));
+            $stmt -> execute(array($index,$index+1));
         }
         for($index=$count;$index>0;$index--){
             $stmt = $db->prepare("UPDATE super_power SET id = ? WHERE id = ?");
-            $stmt -> execute(array($count,$count+1));
+            $stmt -> execute(array($index,$index+1));
         }
     }
 }
