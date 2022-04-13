@@ -18,27 +18,56 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $count --;
 
         $user_id = $_POST['select_user'];
-
+        try{
         $stmt = $db->prepare("DELETE FROM users WHERE id = ?");
         $stmt -> execute(array($user_id));
+        }catch(PDOException $e){
+            print('Error : ' . $e->getMessage());
+            exit();
+        }
 
+        try{
         $stmt = $db->prepare("DELETE FROM super_power WHERE id = ?");
         $stmt -> execute(array($user_id));
+        }catch(PDOException $e){
+            print('Error : ' . $e->getMessage());
+            exit();
+        }
 
-        $stmt = $db->prepare("ALTER TABLE users AUTO_INCREMENT =?");
+        try{
+        $stmt = $db->prepare("ALTER TABLE users AUTO_INCREMENT = ?");
         $stmt -> execute(array($count));
+        }catch(PDOException $e){
+            print('Error : ' . $e->getMessage());
+            exit();
+        }
 
-
+        try{
         $stmt = $db->prepare("ALTER TABLE super_power AUTO_INCREMENT =?");
         $stmt -> execute(array($count));
+        }catch(PDOException $e){
+            print('Error : ' . $e->getMessage());
+            exit();
+        }
+
 
         for($index=$count;$index>0;$index--){
+            try{
             $stmt = $db->prepare("UPDATE users SET id = ? WHERE id = ?");
             $stmt -> execute(array($index,$index+1));
+            }catch(PDOException $e){
+                print('Error : ' . $e->getMessage());
+                exit();
+            }
         }
         for($index=$count;$index>0;$index--){
+            try{
             $stmt = $db->prepare("UPDATE super_power SET id = ? WHERE id = ?");
             $stmt -> execute(array($index,$index+1));
+            }catch(PDOException $e){
+                print('Error : ' . $e->getMessage());
+                exit();
+            }
         }
     }
 }
@@ -80,7 +109,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     }
                     ?>
                 </select>
-                <button name ="delete_user">Удалить пользователя</button>
+                <button name ="delete_user" type = "submit">Удалить пользователя</button>
             </form>
 
 

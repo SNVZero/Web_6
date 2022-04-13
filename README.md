@@ -1,7 +1,7 @@
 SQL TABLE CREATED
 
-CREATE TABLE USERS (
-    ->  id int(10) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE users (
+    -> id int(10) unsigned NOT NULL AUTO_INCREMENT,
     -> login varchar(128) NOT NULL DEFAULT 'login',
     -> pass varchar(128) NOT NULL DEFAULT 'pass',
     -> name varchar(128) NOT NULL DEFAULT 'name',
@@ -9,7 +9,7 @@ CREATE TABLE USERS (
     -> bio varchar(256) NOT NULL DEFAULT 'bio',
     -> date varchar(10) NOT NULL DEFAULT '01-01-1970',
     -> gender varchar(1) NOT NULL DEFAULT '-',
-    -> limbs varchar(1) NOT NULL DEFAULT '4',
+    -> limbs varchar(2) NOT NULL DEFAULT '4',
     -> PRIMARY KEY (id)
     -> );
 
@@ -18,7 +18,7 @@ CREATE TABLE USERS (
     -> human_id int(10) unsigned NOT NULL,
     -> superabilities VARCHAR(128) NOT NULL,
     -> PRIMARY KEY (id),
-    -> FOREIGN KEY (human_id) REFERENCES USERS (Id)
+    -> FOREIGN KEY (human_id) REFERENCES users (Id)
     -> );
 
  CREATE TABLE admin (
