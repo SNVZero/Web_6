@@ -25,27 +25,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         mysqli_query($connect, $sql);
     }
 
-    if(isset($_POST['edit_user'])){
-        $user_id =  mysqli_real_escape_string($connect ,$_POST['select_user']);
-        $check_user = mysqli_query($connect, "SELECT * FROM users WHERE id = '$user_id'");
-        $user = mysqli_fetch_assoc($check_user);
 
-        $check_power = mysqli_query($connect, "SELECT * FROM super_power WHERE human_id = '$user_id'");
-        $power =mysqli_fetch_assoc($check_power);
-
-        setcookie('admin','1', '/');
-        setcookie('name_value',$user['name'], '/');
-        setcookie('email_value',$user['mail'], '/');
-        setcookie('bio_value',$user['bio'], '/');
-        setcookie('year_value',$user['date'], '/');
-        setcookie('gender_value',$user['gender'], '/');
-        setcookie('limbs_value',$user['limbs'], '/');
-        setcookie('ability_value',$power['superabilities'], '/');
-        setcookie('agree_value', '1', '/');
-
-        header('Location: ../index.php');
-
-    }
 
 }
 ?>
@@ -97,6 +77,176 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
         </div>
     </div>
+    <?php
+        if(isset($_POST['edit_user'])){
+            $user_id =  mysqli_real_escape_string($connect ,$_POST['select_user']);
+            $check_user = mysqli_query($connect, "SELECT * FROM users WHERE id = '$user_id'");
+            $user = mysqli_fetch_assoc($check_user);
+
+            $check_power = mysqli_query($connect, "SELECT * FROM super_power WHERE human_id = '$user_id'");
+            $power =mysqli_fetch_assoc($check_power);
+
+            setcookie('name_value',$user['name']);
+            setcookie('email_value',$user['mail']);
+            setcookie('bio_value',$user['bio']);
+            setcookie('year_value',$user['date']);
+            setcookie('gender_value',$user['gender']);
+            setcookie('limbs_value',$user['limbs']);
+            setcookie('ability_value',$power['superabilities']);
+            setcookie('agree_value', '1');
+
+            if(empty($_COOKIE['ability_value'])){
+                $value_ability[] = array();
+
+                $value_ability[0] = ' ';
+                $value_ability[1] = ' ';
+                $value_ability[2] = ' ';
+                $value_ability[3] = ' ';
+
+
+                }else{
+                    $value_ability = explode(',',$_COOKIE['ability_value']);
+                    $a = count($value_ability)-1;
+                    for($a ; $a < 4 ; $a++){
+                        $value_ability[$a] = '';
+                    }
+                }
+            ?>
+
+            <form method = "POST" action = "adminroom.php">
+                <div>
+                    <input class="webform__form-elem form__input _req"  id="names" type="text" name="name"
+                        placeholder="Имя" value= "<?php print($_COOKIE['name_value']); ?>" >
+                </div>
+
+                <div>
+                <input class="webform__form-elem form__input _req _email" id="email" type="email" name="email"
+                        placeholder="E-mail" value= "<?php print($_COOKIE['email_value']);?>">
+
+                </div>
+
+                <div>
+                    <textarea id="comment" class="webform__form-elem form__input _req" type="text" name="bio" placeholder="Биография" ><?php print($_COOKIE['bio_value']); ?></textarea>
+                </div>
+
+                <div class="form_item form-group">
+                    <label for="formDate" style="color: white;">Дата рождения:</label>
+                    <input type="date" class="form_input form__input _req form-control w-50  bg-white rounded" name="year" id="dates" value="<?php print($_COOKIE['year_value']); ?>">
+                </div>
+
+                <div class="gender">
+                    <label style="margin-right: 5px;">Пол : </label>
+                    <div>
+                        <input type="radio" id="male" name="gender" value="m"
+                            <?php
+                                if($_COOKIE['gender_value'] == 'm'){
+                                    print('checked');
+                                }
+                            ?>
+                        />
+                        <label for="male" id="male">мужской</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="female"name="gender" value="f"
+                            <?php
+                                if($_COOKIE['gender_value'] == 'f'){
+                                    print('checked');
+                                }
+                            ?>
+                        />
+                        <label for="female" id="female">женский</label>
+                    </div>
+                </div>
+
+                <div class="limbs">
+                    <label>Количество конечностей :</label>
+                    <input type="radio" id="2" name="limbs" value="2"
+                        <?php
+                            if($_COOKIE['limbs_value'] == '2'){
+                                print('checked');
+                            }
+                            ?>
+                    >
+                    <label for="2" id="2">2</label>
+                    <input type="radio" id="4" name="limbs" value="4"
+                            <?php
+                                if($_COOKIE['limbs_value'] == '4'){
+                                    print('checked');
+                                }
+                            ?>
+                    >
+                    <label for="4" id="4">4</label>
+                    <input type="radio" id="8" name="limbs" value="8"
+                        <?php
+                            if($_COOKIE['limbs_value'] == '8'){
+                                print('checked');
+                            }
+                        ?>
+                    >
+                    <label for="8" id="8">8</label>
+                    <input type="radio" id="16" name="limbs" value="16"
+                        <?php
+                            if($_COOKIE['limbs_value'] == '16'){
+                                print('checked');
+                            }
+                        ?>
+                    >
+                    <label for="16" id="16">16</label>
+                </div>
+
+                <div class="capabilities">
+                    <select name="capabilities[]" size="2" multiple>
+                        <option value="s1"
+                            <?php
+                                if($value_ability[0] == 'immortal'){
+                                    print('selected');
+                                }
+                            ?>
+                        >бессмертие</option>
+                        <option value="s2"
+                            <?php
+                                if($value_ability[0] == 'noclip' || $value_ability[1] == 'noclip'){
+                                    print('selected');
+                                }
+                            ?>
+                        >прохождение сквозь стены</option>
+                        <option value="s3"
+                            <?php
+                                if($value_ability[0] == 'flying' || $value_ability[1] == 'flying' || $value_ability[2] == 'flying'){
+                                    print('selected');
+                                }
+                            ?>
+                        >левитация</option>
+                        <option value="s4"
+                            <?php
+                                if($value_ability[0] == 'lazer' || $value_ability[1] == 'lazer' || $value_ability[2] == 'lazer' || $value_ability[3] == 'lazer' ){
+                                    print('selected');
+                                }
+                            ?>
+                        >лазеры из глаз</option>
+                    </select>
+                </div>
+
+                <div class="form__checkbox">
+                    <input class="checkbox__input _req" type="checkbox" id="userAgreement"  name="agree"
+                        <?php
+                            if($_COOKIE['agree_value']){
+                                print('checked');
+                            }
+                        ?>
+                    >
+                        <label class="checkbox__label" for="userAgreement">Отправляя заявку, я даю согласие на<a>обработку своих персональных данных</a>.<span>*</span></label>
+                </div>
+
+
+                <div>
+                    <input class="webform__form-btn" type="submit" name="edit" value="Отправить">
+                </div>
+            </form>
+
+    <?php
+    }
+    ?>
 
 
 </body>
