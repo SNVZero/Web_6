@@ -43,40 +43,44 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 
 <body>
-    <div class="wrapper">
-        <header>
-            <div class="top">
-                <div class="content"></div>
-                <div class="exit">
-                    <a class ="quit" href="../index.php">Выйти</a>
+<?php
+    if(isset($_POST['edit_user'])){?>
+        <div class="wrapper">
+            <header>
+                <div class="top">
+                    <div class="content"></div>
+                    <div class="exit">
+                        <a class ="quit" href="../index.php">Выйти</a>
+                    </div>
                 </div>
-            </div>
-        </header>
-    </div>
-    <div class="wrapper">
-        <div class="main_content">
-            <form method="POST" action="adminroom.php">
-                <select name="select_user" id="selector">
-                <option selected disabled>Выбрать пользователя</option>
-                    <?php
-                    for($index =1 ;$index <= $count;$index++){
-                        $check_user = mysqli_query($connect, "SELECT * FROM users WHERE id = $index");
-                        $user = mysqli_fetch_assoc($check_user);
-                        if($user['id'] == $index){
-                            print("<option value =" . $index . ">" . "id : ". $user['id'] . " Имя : " . $user['name'] . " Почта : ". $user['mail'] . " Дата рождения : ". $user['date'] . " Пол : ". $user['gender'] . " Кол. конечностей : ". $user['limbs']  ."</option>");
-                        }
-                    }
-                    ?>
-                </select>
-                <div class="btn_action">
-                    <button name ="edit_user" type = "submit">Редактировать пользователя</button>
-                    <button name ="delete_user" type = "submit">Удалить пользователя</button>
-                </div>
-            </form>
-
-
+            </header>
         </div>
-    </div>
+        <div class="wrapper">
+            <div class="main_content">
+                <form method="POST" action="adminroom.php">
+                    <select name="select_user" id="selector">
+                    <option selected disabled>Выбрать пользователя</option>
+                        <?php
+                        for($index =1 ;$index <= $count;$index++){
+                            $check_user = mysqli_query($connect, "SELECT * FROM users WHERE id = $index");
+                            $user = mysqli_fetch_assoc($check_user);
+                            if($user['id'] == $index){
+                                print("<option value =" . $index . ">" . "id : ". $user['id'] . " Имя : " . $user['name'] . " Почта : ". $user['mail'] . " Дата рождения : ". $user['date'] . " Пол : ". $user['gender'] . " Кол. конечностей : ". $user['limbs']  ."</option>");
+                            }
+                        }
+                        ?>
+                    </select>
+                    <div class="btn_action">
+                        <button name ="edit_user" type = "submit">Редактировать пользователя</button>
+                        <button name ="delete_user" type = "submit">Удалить пользователя</button>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    <? } ?>
+
     <?php
         if(isset($_POST['edit_user'])){
             $user_id =  mysqli_real_escape_string($connect ,$_POST['select_user']);
