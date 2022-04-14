@@ -12,18 +12,18 @@ $res = $db->query("SELECT max(id) FROM users");
 $row = $res->fetch();
 $count = (int) $row[0];
 
-if($_SERVER['REQUEST_METHOD'] == 'POST'){
+if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
 
-    if(isset($_POST['delete_user'])){
 
-        $user_id =  mysqli_real_escape_string($connect ,$_POST['select_user']);
 
-        $sql = "DELETE FROM users WHERE id = '$user_id'";
-        mysqli_query($connect, $sql);
+    $user_id =  mysqli_real_escape_string($connect ,$_POST['select_user']);
 
-        $sql = "DELETE FROM super_power WHERE id = '$user_id'";
-        mysqli_query($connect, $sql);
-    }
+    $sql = "DELETE FROM users WHERE id = '$user_id'";
+    mysqli_query($connect, $sql);
+
+    $sql = "DELETE FROM super_power WHERE id = '$user_id'";
+    mysqli_query($connect, $sql);
+
 
 
 
@@ -43,9 +43,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 
 <body>
-<?php
-    if(is_null(@$_POST['edit_user'])){
-?>
+
         <div class="wrapper">
             <header>
                 <div class="top">
@@ -80,7 +78,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
             </div>
         </div>
-    <?php } ?>
 
     <?php
         if(isset($_POST['edit_user']) && $_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -91,38 +88,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $check_power = mysqli_query($connect, "SELECT * FROM super_power WHERE human_id = '$user_id'");
             $power =mysqli_fetch_assoc($check_power);
 
-            setcookie('name_value',$user['name']);
-            setcookie('email_value',$user['mail']);
-            setcookie('bio_value',$user['bio']);
-            setcookie('year_value',$user['date']);
-            setcookie('gender_value',$user['gender']);
-            setcookie('limbs_value',$user['limbs']);
-            setcookie('ability_value',$power['superabilities']);
-            setcookie('agree_value', '1');
-
-            $value['name'] = empty($_COOKIE['name_value']) ? '' : $_COOKIE['name_value'];
-            $value['email'] = empty($_COOKIE['email_value']) ? '' : $_COOKIE['email_value'];
-            $value['bio'] = empty($_COOKIE['bio_value']) ? '' : $_COOKIE['bio_value'];
-            $value['year'] = empty($_COOKIE['year_value']) ? '' : $_COOKIE['year_value'];
-            $value['gender'] = empty($_COOKIE['gender_value']) ? '' : $_COOKIE['gender_value'];
-            $value['limbs'] = empty($_COOKIE['limbs_value']) ? '' : $_COOKIE['limbs_value'];
-
-            if(empty($_COOKIE['ability_value'])){
-                $value_ability[] = array();
-
-                $value_ability[0] = ' ';
-                $value_ability[1] = ' ';
-                $value_ability[2] = ' ';
-                $value_ability[3] = ' ';
 
 
-                }else{
-                    $value_ability = explode(',',$_COOKIE['ability_value']);
-                    $a = count($value_ability)-1;
-                    for($a ; $a < 4 ; $a++){
-                        $value_ability[$a] = '';
-                    }
-                }
+
+            $value_ability = explode(',',$power['superabilities']);
+            $a = count($value_ability)-1;
+            for($a ; $a < 4 ; $a++){
+                $value_ability[$a] = '';
+
             }
             ?>
             <?php
@@ -131,22 +104,22 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             <form method = "POST" action = "adminroom.php">
                 <div>
                     <input class="webform__form-elem form__input _req"  id="names" type="text" name="name"
-                        placeholder="Имя" value= "<?php print($value['name']); ?>" >
+                        placeholder="Имя" value= "<?php print($user['name']); ?>" >
                 </div>
 
                 <div>
                 <input class="webform__form-elem form__input _req _email" id="email" type="email" name="email"
-                        placeholder="E-mail" value= "<?php print($value['email']);?>">
+                        placeholder="E-mail" value= "<?php print($user['mail']);?>">
 
                 </div>
 
                 <div>
-                    <textarea id="comment" class="webform__form-elem form__input _req" type="text" name="bio" placeholder="Биография" ><?php print($value['bio']); ?></textarea>
+                    <textarea id="comment" class="webform__form-elem form__input _req" type="text" name="bio" placeholder="Биография" ><?php print($user['bio']); ?></textarea>
                 </div>
 
                 <div class="form_item form-group">
                     <label for="formDate" style="color: white;">Дата рождения:</label>
-                    <input type="date" class="form_input form__input _req form-control w-50  bg-white rounded" name="year" id="dates" value="<?php print($value['year']); ?>">
+                    <input type="date" class="form_input form__input _req form-control w-50  bg-white rounded" name="year" id="dates" value="<?php print($user['date']); ?>">
                 </div>
 
                 <div class="gender">
@@ -154,7 +127,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     <div>
                         <input type="radio" id="male" name="gender" value="m"
                             <?php
-                                if($value['gender'] == 'm'){
+                                if($user['gender'] == 'm'){
                                     print('checked');
                                 }
                             ?>
@@ -164,7 +137,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     <div>
                         <input type="radio" id="female"name="gender" value="f"
                             <?php
-                                if($value['gender'] == 'f'){
+                                if($user['gender'] == 'f'){
                                     print('checked');
                                 }
                             ?>
@@ -177,7 +150,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     <label>Количество конечностей :</label>
                     <input type="radio" id="2" name="limbs" value="2"
                         <?php
-                            if($value['limbs'] == '2'){
+                            if($user['limbs'] == '2'){
                                 print('checked');
                             }
                             ?>
@@ -185,7 +158,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     <label for="2" id="2">2</label>
                     <input type="radio" id="4" name="limbs" value="4"
                             <?php
-                                if($value['limbs'] == '4'){
+                                if($user['limbs'] == '4'){
                                     print('checked');
                                 }
                             ?>
@@ -193,7 +166,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     <label for="4" id="4">4</label>
                     <input type="radio" id="8" name="limbs" value="8"
                         <?php
-                            if($value['limbs'] == '8'){
+                            if($user['limbs'] == '8'){
                                 print('checked');
                             }
                         ?>
@@ -201,7 +174,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     <label for="8" id="8">8</label>
                     <input type="radio" id="16" name="limbs" value="16"
                         <?php
-                            if($value['limbs'] == '16'){
+                            if($user['limbs'] == '16'){
                                 print('checked');
                             }
                         ?>
@@ -245,7 +218,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 <div class="form__checkbox">
                     <input class="checkbox__input _req" type="checkbox" id="userAgreement"  name="agree"
                         <?php
-                            if($_COOKIE['agree_value']){
+                            if($user['agree_value']){
                                 print('checked');
                             }
                         ?>
