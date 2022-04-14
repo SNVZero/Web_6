@@ -564,4 +564,26 @@ header('Location: index.php');//Переадресация на главную �
 
 }
 
+
+function generateLogin($length = 6)//Функция создания рандомного логина
+{
+	$chars = 'qazxswedcvfrtgbnhyujmkiolp1234567890QAZXSWEDCVFRTGBNHYUJMKIOLP';
+	$size = strlen($chars) - 1;
+	$login = '';
+	while($length--) {
+		$login .= $chars[random_int(0, $size)];
+	}
+	return $login;
+}
+
+function generatePassword($length = 6){//Функция создания рандомного пароля
+    $chars = 'abdefhiknrstyzABDEFGHKNQRSTYZ1234567890';
+    $numChars = strlen($chars);
+    $password = '';
+    for ($i = 0; $i < $length; $i++) {
+      $password .= substr($chars, rand(1, $numChars) - 1, 1);
+    }
+    return $password;
+  }
+
 ?>
