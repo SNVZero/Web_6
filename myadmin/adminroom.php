@@ -15,8 +15,7 @@ $count = (int) $row[0];
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     if(isset($_POST['delete_user'])){
-        $count --;
-        $inc =$count;
+
         $user_id =  mysqli_real_escape_string($connect ,$_POST['select_user']);
 
         $sql = "DELETE FROM users WHERE id = '$user_id'";
