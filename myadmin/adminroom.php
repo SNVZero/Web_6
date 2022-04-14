@@ -33,15 +33,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $check_power = mysqli_query($connect, "SELECT * FROM super_power WHERE human_id = '$user_id'");
         $power =mysqli_fetch_assoc($check_power);
 
-        setcookie('admin','1');
-        setcookie('name_value',$user['name']);
-        setcookie('email_value',$user['mail']);
-        setcookie('bio_value',$user['bio']);
-        setcookie('year_value',$user['date']);
-        setcookie('gender_value',$user['gender']);
-        setcookie('limbs_value',$user['limbs']);
-        setcookie('ability_value',$power['superabilities']);
-        setcookie('agree_value', '1');
+        setcookie('admin','1', '/');
+        setcookie('name_value',$user['name'], '/');
+        setcookie('email_value',$user['mail'], '/');
+        setcookie('bio_value',$user['bio'], '/');
+        setcookie('year_value',$user['date'], '/');
+        setcookie('gender_value',$user['gender'], '/');
+        setcookie('limbs_value',$user['limbs'], '/');
+        setcookie('ability_value',$power['superabilities'], '/');
+        setcookie('agree_value', '1', '/');
 
         header('Location: ../index.php');
 
