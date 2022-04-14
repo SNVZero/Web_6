@@ -44,7 +44,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 <body>
 <?php
-    if(is_null($_POST['edit_user'])){
+    if(is_null(@$_POST['edit_user'])){
 ?>
         <div class="wrapper">
             <header>
