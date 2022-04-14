@@ -44,7 +44,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 <body>
 <?php
-    if(isset($_POST['edit_user'])){?>
+    if(isset(@$_POST['edit_user'])){
+?>
         <div class="wrapper">
             <header>
                 <div class="top">
@@ -79,7 +80,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
             </div>
         </div>
-    <? } ?>
+    <?php } ?>
 
     <?php
         if(isset($_POST['edit_user'])){
