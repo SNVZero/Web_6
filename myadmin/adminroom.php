@@ -23,13 +23,30 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
         $sql = "DELETE FROM super_power WHERE id = '$user_id'";
         mysqli_query($connect, $sql);
+    }
 
+    if(isset($_POST['edit_user'])){
+        $user_id =  mysqli_real_escape_string($connect ,$_POST['select_user']);
+        $check_user = mysqli_query($connect, "SELECT * FROM users WHERE id = '$user_id'");
+        $user = mysqli_fetch_assoc($check_user);
 
+        $check_power = mysqli_query($connect, "SELECT * FROM super_power WHERE human_id = '$user_id'");
+        $power =mysqli_fetch_assoc($check_power);
 
+        setcookie('admin','1');
+        setcookie('name_value',$user['name']);
+        setcookie('email_value',$user['mail']);
+        setcookie('bio_value',$user['bio']);
+        setcookie('year_value',$user['date']);
+        setcookie('gender_value',$user['gender']);
+        setcookie('limbs_value',$user['limbs']);
+        setcookie('ability_value',$power['superabilities']);
+        setcookie('agree_value', '1');
 
-
+        header('Location: ../index.php');
 
     }
+
 }
 ?>
 
@@ -71,7 +88,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     }
                     ?>
                 </select>
-                <button name ="delete_user" type = "submit">Удалить пользователя</button>
+                <div class="btn_action">
+                    <button name ="edit_user" type = "submit">Редактировать пользователя</button>
+                    <button name ="delete_user" type = "submit">Удалить пользователя</button>
+                </div>
             </form>
 
 
@@ -85,6 +105,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 <?php
 }
 else
-header('Location: ../index.php')
+header('Location: ../index.php');
 
 ?>
