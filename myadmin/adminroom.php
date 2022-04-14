@@ -216,18 +216,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
                     </select>
                 </div>
 
-                <div class="form__checkbox">
-                    <input class="checkbox__input _req" type="checkbox" id="userAgreement"  name="agree"
-                        <?php
-                            if($user['agree_value']){
-                                print('checked');
-                            }
-                        ?>
-                    >
-                        <label class="checkbox__label" for="userAgreement">Отправляя заявку, я даю согласие на<a>обработку своих персональных данных</a>.<span>*</span></label>
-                </div>
-
-
                 <div>
                     <input class="webform__form-btn" type="submit" name="edit" value="Отправить">
                 </div>
