@@ -2,13 +2,22 @@
     display : flex;
     justify-content: center;
     background:linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(59,59,59,1) 59%);
-    margin-bottom: 40px;
+    padding-bottom: 40px;
 }
 
 .wrapper{
     display : flex;
     justify-content: center;
     background:linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(59,59,59,1) 59%);
-    margin-bottom: 10px;
+    padding-bottom: 40px;
 }
 
+.quit {
+    text-decoration: none;
+    font-size: 14px;
+    color: #FFFFFF;
+}
+
+.quit:hover{
+    text-decoration: underline;
+}
