@@ -273,6 +273,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit'])){
                 <div>
                     <input class="webform__form-btn" type="submit" name="edit" value="Отправить">
                 </div>
+                <div>
+                    <button><a href ="adminroom.php">Отменить редактировани</a></butto>
+                </div>
             </form>
 
     <?php
