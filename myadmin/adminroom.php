@@ -28,6 +28,60 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
 
 
 }
+
+if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit'])){
+
+
+
+    $power1=in_array('s1',$_POST['capabilities']) ? '1' : '0';
+    $power2=in_array('s2',$_POST['capabilities']) ? '1' : '0';
+    $power3=in_array('s3',$_POST['capabilities']) ? '1' : '0';
+    $power4=in_array('s4',$_POST['capabilities']) ? '1' : '0';
+
+    //Способности сохраняются в единную строку которая позже будет сохранена в бд
+    if($power1 == 1){
+        $ability = 'immortal' . ',';
+    }
+
+    if($power2 == 1 && !empty($ability)){
+        $ability .= 'noclip' . ',';
+    }else if($power2 == 1 && empty($ability)){
+        $ability = 'noclip' . ',';
+    }
+
+    if($power3 == 1 && !empty($ability)){
+        $ability .= 'flying' . ',';
+    }else if($power3 == 1 && empty($ability)){
+        $ability = 'flying' . ',';
+    }
+
+    if($power4 == 1 && !empty($ability)){
+        $ability .= 'lazer' . ',';
+    }else if($power4 == 1 && empty($ability)){
+        $ability = 'lazer' . ',';
+    }
+
+
+    try{//Блок изменения данных о пользователе,которые он предпочел изменить
+
+        $id = $_COOKIE['id'];
+
+        $stmt = $db->prepare("UPDATE users SET name = ?, mail = ?, bio = ?, date = ?, gender = ?, limbs = ? WHERE id = ?");
+        $stmt -> execute(array($_POST['name'],$_POST['email'],$_POST['bio'],$_POST['year'],$_POST['gender'],$_POST['limbs'], $id));
+
+        $stmt = $db->prepare("UPDATE  super_power SET superabilities = ? WHERE human_id = ?");
+        $stmt -> execute([$ability,$id]);
+
+        setcookie('id','',1);
+
+    }catch(PDOException $e){
+        print('Error : ' . $e->getMessage());
+        exit();
+    }
+
+
+
+}
 ?>
 
 <!Doctype html>
@@ -88,7 +142,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
             $check_power = mysqli_query($connect, "SELECT * FROM super_power WHERE human_id = '$user_id'");
             $power =mysqli_fetch_assoc($check_power);
 
-
+            setcookie('id',$user['id']);
 
 
             $value_ability = explode(',',$power['superabilities']);
