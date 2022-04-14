@@ -80,6 +80,16 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit'])){
     }
 
 
+    if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['num_power'])){
+
+        $user_power =  mysqli_real_escape_string($connect ,$_POST['select_power']);
+        $check_powers = mysqli_query($connect, "SELECT superabilities FROM super_power WHERE superabilities LIKE '%$user_power%'");
+        setcookie('user_power',mysqli_num_rows($check_user));
+
+
+
+    }
+
 
 }
 ?>
@@ -132,15 +142,23 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit'])){
 
                     <div class="select_power">
                         <select name ="select_power" id = "selector_power">
-                            <option value ="1">бессмертие</option>
-                            <option value ="2">прохождение сквозь стены</option>
-                            <option value ="3">левитация</option>
-                            <option value ="4">лазеры из глаз</option>
+                            <option selected disabled>Выбрать способность</option>
+                            <option value ="immortal">бессмертие</option>
+                            <option value ="noclip">прохождение сквозь стены</option>
+                            <option value ="flying">левитация</option>
+                            <option value ="lazer">лазеры из глаз</option>
                         </select>
                     </div>
                     <div class="btn_action">
                         <button name ="num_power" type = "submit">Редактировать пользователя</button>
                     </div>
+                    <?php
+                        if(isset($_POST['num_power'])){
+                            print("<div class="num_power">
+                            <p>Количество людей с данной способностью : " . $_COOKIE['user_power']."
+                            </div>");
+                        }
+                    ?>
                 </form>
 
 
