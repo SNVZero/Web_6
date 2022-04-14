@@ -100,6 +100,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             setcookie('ability_value',$power['superabilities']);
             setcookie('agree_value', '1');
 
+            $value['name'] = empty($_COOKIE['name_value']) ? '' : $_COOKIE['name_value'];
+            $value['email'] = empty($_COOKIE['email_value']) ? '' : $_COOKIE['email_value'];
+            $value['bio'] = empty($_COOKIE['bio_value']) ? '' : $_COOKIE['bio_value'];
+            $value['year'] = empty($_COOKIE['year_value']) ? '' : $_COOKIE['year_value'];
+            $value['gender'] = empty($_COOKIE['gender_value']) ? '' : $_COOKIE['gender_value'];
+            $value['limbs'] = empty($_COOKIE['limbs_value']) ? '' : $_COOKIE['limbs_value'];
+
             if(empty($_COOKIE['ability_value'])){
                 $value_ability[] = array();
 
@@ -124,22 +131,22 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             <form method = "POST" action = "adminroom.php">
                 <div>
                     <input class="webform__form-elem form__input _req"  id="names" type="text" name="name"
-                        placeholder="Имя" value= "<?php print($_COOKIE['name_value']); ?>" >
+                        placeholder="Имя" value= "<?php print($value['name']); ?>" >
                 </div>
 
                 <div>
                 <input class="webform__form-elem form__input _req _email" id="email" type="email" name="email"
-                        placeholder="E-mail" value= "<?php print($_COOKIE['email_value']);?>">
+                        placeholder="E-mail" value= "<?php print($value['email']);?>">
 
                 </div>
 
                 <div>
-                    <textarea id="comment" class="webform__form-elem form__input _req" type="text" name="bio" placeholder="Биография" ><?php print($_COOKIE['bio_value']); ?></textarea>
+                    <textarea id="comment" class="webform__form-elem form__input _req" type="text" name="bio" placeholder="Биография" ><?php print($value['bio']); ?></textarea>
                 </div>
 
                 <div class="form_item form-group">
                     <label for="formDate" style="color: white;">Дата рождения:</label>
-                    <input type="date" class="form_input form__input _req form-control w-50  bg-white rounded" name="year" id="dates" value="<?php print($_COOKIE['year_value']); ?>">
+                    <input type="date" class="form_input form__input _req form-control w-50  bg-white rounded" name="year" id="dates" value="<?php print($value['year']); ?>">
                 </div>
 
                 <div class="gender">
@@ -147,7 +154,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     <div>
                         <input type="radio" id="male" name="gender" value="m"
                             <?php
-                                if($_COOKIE['gender_value'] == 'm'){
+                                if($value['gender'] == 'm'){
                                     print('checked');
                                 }
                             ?>
@@ -157,7 +164,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     <div>
                         <input type="radio" id="female"name="gender" value="f"
                             <?php
-                                if($_COOKIE['gender_value'] == 'f'){
+                                if($value['gender'] == 'f'){
                                     print('checked');
                                 }
                             ?>
@@ -170,7 +177,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     <label>Количество конечностей :</label>
                     <input type="radio" id="2" name="limbs" value="2"
                         <?php
-                            if($_COOKIE['limbs_value'] == '2'){
+                            if($value['limbs'] == '2'){
                                 print('checked');
                             }
                             ?>
@@ -178,7 +185,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     <label for="2" id="2">2</label>
                     <input type="radio" id="4" name="limbs" value="4"
                             <?php
-                                if($_COOKIE['limbs_value'] == '4'){
+                                if($value['limbs'] == '4'){
                                     print('checked');
                                 }
                             ?>
@@ -186,7 +193,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     <label for="4" id="4">4</label>
                     <input type="radio" id="8" name="limbs" value="8"
                         <?php
-                            if($_COOKIE['limbs_value'] == '8'){
+                            if($value['limbs'] == '8'){
                                 print('checked');
                             }
                         ?>
@@ -194,7 +201,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     <label for="8" id="8">8</label>
                     <input type="radio" id="16" name="limbs" value="16"
                         <?php
-                            if($_COOKIE['limbs_value'] == '16'){
+                            if($value['limbs'] == '16'){
                                 print('checked');
                             }
                         ?>
