@@ -142,7 +142,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit'])){
                         </select>
                     </div>
                     <div class="btn_action">
-                        <button name ="num_power" type = "submit">Редактировать пользователя</button>
+                        <button name ="num_power" type = "submit">Показать количество способностей</button>
                     </div>
                     <?php
                         if(isset($_POST['num_power']) && $_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -153,7 +153,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit'])){
                             $num_power = mysqli_num_rows($check_powers);
 
                             print("<div class=" ."num_power" .">
-                            <p>Количество людей с данной способностью : " . $num_power."
+                            <p>Количество людей со способностью ". $_POST['num_power'] . " : " . $num_power."
                             </div>");
                         }
                     ?>
