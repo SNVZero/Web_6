@@ -111,21 +111,35 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit'])){
         <div class="wrapper">
             <div class="main_content">
                 <form method="POST" action="adminroom.php">
-                    <select name="select_user" id="selector">
-                    <option selected disabled>Выбрать пользователя</option>
-                        <?php
-                        for($index =1 ;$index <= $count;$index++){
-                            $check_user = mysqli_query($connect, "SELECT * FROM users WHERE id = $index");
-                            $user = mysqli_fetch_assoc($check_user);
-                            if($user['id'] == $index){
-                                print("<option value =" . $index . ">" . "id : ". $user['id'] . " Имя : " . $user['name'] . " Почта : ". $user['mail'] . " Дата рождения : ". $user['date'] . " Пол : ". $user['gender'] . " Кол. конечностей : ". $user['limbs']  ."</option>");
+                    <div class="select_user">
+                        <select name="select_user" id="selector_user">
+                        <option selected disabled>Выбрать пользователя</option>
+                            <?php
+                            for($index =1 ;$index <= $count;$index++){
+                                $check_user = mysqli_query($connect, "SELECT * FROM users WHERE id = $index");
+                                $user = mysqli_fetch_assoc($check_user);
+                                if($user['id'] == $index){
+                                    print("<option value =" . $index . ">" . "id : ". $user['id'] . " Имя : " . $user['name'] . " Почта : ". $user['mail'] . " Дата рождения : ". $user['date'] . " Пол : ". $user['gender'] . " Кол. конечностей : ". $user['limbs']  ."</option>");
+                                }
                             }
-                        }
-                        ?>
-                    </select>
+                            ?>
+                        </select>
+                    </div>
                     <div class="btn_action">
                         <button name ="edit_user" type = "submit">Редактировать пользователя</button>
                         <button name ="delete_user" type = "submit">Удалить пользователя</button>
+                    </div>
+
+                    <div class="select_power">
+                        <select name ="select_power" id = "selector_power">
+                            <option value ="1">бессмертие</option>
+                            <option value ="2">прохождение сквозь стены</option>
+                            <option value ="3">левитация</option>
+                            <option value ="4">лазеры из глаз</option>
+                        </select>
+                    </div>
+                    <div class="btn_action">
+                        <button name ="num_power" type = "submit">Редактировать пользователя</button>
                     </div>
                 </form>
 
