@@ -148,9 +148,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit'])){
                         if(isset($_POST['num_power']) && $_SERVER['REQUEST_METHOD'] == 'POST'){
 
 
-                            $user_power =  mysqli_real_escape_string($connect ,$_POST['select_power']);
-                            $check_powers = mysqli_query($connect, "SELECT superabilities FROM super_power WHERE superabilities LIKE '%$user_power%'");
-                            $num_power = mysqli_num_rows($check_user);
+
+                            $check_powers = mysqli_query($connect, "SELECT superabilities FROM super_power WHERE superabilities LIKE '%$_POST['selct_power']%'");
+                            $num_power = mysqli_num_rows($check_powers);
 
                             print("<div class=" ."num_power" .">
                             <p>Количество людей с данной способностью : " . $num_power."
