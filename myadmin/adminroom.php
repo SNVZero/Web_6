@@ -99,7 +99,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit'])){
 
 
 <body>
-    <div class="wrapper">
+    <div class="content">
         <div class="header">
             <header>
                 <div class="top">
