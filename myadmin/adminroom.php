@@ -97,6 +97,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
                 $value_ability[$a] = '';
 
             }
+        }
             ?>
             <?php
             if(isset($_POST['edit_user'])){?>
