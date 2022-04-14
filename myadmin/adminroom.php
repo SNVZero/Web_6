@@ -153,8 +153,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit'])){
                         <button name ="num_power" type = "submit">Редактировать пользователя</button>
                     </div>
                     <?php
-                        if(isset(@$_POST['num_power'])){
-                            print("<div class="num_power">
+                        if(isset($_POST['num_power']) && $_SERVER['REQUEST_METHOD'] == 'POST'){
+                            print("<div class=" ."num_power" .">
                             <p>Количество людей с данной способностью : " . $_COOKIE['user_power']."
                             </div>");
                         }
