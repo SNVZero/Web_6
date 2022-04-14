@@ -153,7 +153,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit'])){
                             $num_power = mysqli_num_rows($check_powers);
 
                             print("<div class=" ."num_power" .">
-                            <p>Количество людей со способностью ". $_POST['num_power'] . " : " . $num_power."
+                            <p>Количество людей со способностью " . $_POST['selet_power'] . " : " . $num_power."
                             </div>");
                         }
                     ?>
