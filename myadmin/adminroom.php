@@ -66,7 +66,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     for($index =1 ;$index <= $count;$index++){
                         $check_user = mysqli_query($connect, "SELECT * FROM users WHERE id = $index");
                         $user = mysqli_fetch_assoc($check_user);
-                        if($user['id'] === $index){
+                        if($user['id'] == $index){
                             print("<option value =" . $index . ">" . "id : ". $user['id'] . " Имя : " . $user['name'] . " Почта : ". $user['mail'] . " Дата рождения : ". $user['date'] . " Пол : ". $user['gender'] . " Кол. конечностей : ". $user['limbs']  ."</option>");
                         }
                     }
