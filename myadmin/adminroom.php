@@ -25,30 +25,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $sql = "DELETE FROM super_power WHERE id = '$user_id'";
         mysqli_query($connect, $sql);
 
-        for($index=$count;$index>0;$index--){
-            try{
-            $stmt = $db->prepare("UPDATE users SET id = ? WHERE id = ?");
-            $stmt -> execute(array($index,$index+1));
-            }catch(PDOException $e){
-                print('Error : ' . $e->getMessage());
-                exit();
-            }
-        }
-        for($index=$count;$index>0;$index--){
-            try{
-            $stmt = $db->prepare("UPDATE super_power SET id = ?, human_id =? WHERE id = ?");
-            $stmt -> execute(array($index,$index,$index+1));
-            }catch(PDOException $e){
-        print('Error : ' . $e->getMessage());
-        exit();
-            }
-        }
 
-        $sql = "ALTER TABLE users AUTO_INCREMENT = '$inc'";
-        mysqli_query($connect, $sql);
-
-        $sql = "ALTER TABLE super_power AUTO_INCREMENT = '$inc'";
-        mysqli_query($connect, $sql);
 
 
 
