@@ -149,7 +149,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit'])){
 
 
 
-                            $check_powers = mysqli_query($connect, "SELECT superabilities FROM super_power WHERE superabilities LIKE '%$_POST['selct_power']%'");
+                            $check_powers = mysqli_query($connect, "SELECT superabilities FROM super_power WHERE superabilities LIKE '%$_POST['select_power']%'");
                             $num_power = mysqli_num_rows($check_powers);
 
                             print("<div class=" ."num_power" .">
