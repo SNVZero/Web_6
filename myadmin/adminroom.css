@@ -1,15 +1,8 @@
-.all_content{
+body{
     background:linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(59,59,59,1) 59%);
 }
 
 .header{
-    display : flex;
-    justify-content: center;
-
-    padding-bottom: 40px;
-}
-
-.wrapper{
     display : flex;
     justify-content: center;
 
@@ -25,4 +18,50 @@
 .quit:hover{
     text-decoration: underline;
     color: #FFFFFF;
+}
+
+.wrapper{
+    display : flex;
+    justify-content: center;
+
+    padding-bottom: 40px;
+}
+
+.btn_action{
+
+}
+
+.btn_edit{
+
+    background: linear-gradient(90deg, rgba(92,105,0,0.8690826672465861) 0%, rgba(91,166,1,1) 30%, rgba(110,125,2,1) 96%);
+    color: #FFFFFF;
+
+    width: 250px;
+    height: 45px;
+
+    margin: 10px 10px 10px 0px;
+
+}
+
+.btn_delete{
+
+    background: linear-gradient(90deg, rgba(255,0,0,0.8690826672465861) 0%, rgba(168,12,12,1) 44%, rgba(255,0,0,1) 88%);
+    color: #FFFFFF;
+
+    width: 250px;
+    height: 45px;
+
+    margin: 10px 10px 10px 0px;
+}
+
+.btn_power{
+
+    background: linear-gradient(90deg, rgba(37,0,255,0.8690826672465861) 0%, rgba(30,35,73,1) 49%, rgba(80,0,255,1) 100%);
+    color: #FFFFFF;
+
+    width: 250px;
+    height: 45px;
+
+    margin: 10px 10px 10px 0px;
+
 }
