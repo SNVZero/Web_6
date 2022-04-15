@@ -17,6 +17,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
 
 
     $user_id =  mysqli_real_escape_string($connect ,$_POST['select_user']);
+    if($user_id == 0){
+        die();
+    }
 
     $sql = "DELETE FROM users WHERE id = '$user_id'";
     mysqli_query($connect, $sql);
@@ -29,7 +32,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
 
 }else if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit'])){
 
-
+    if($_POST['select_user']== 0){
+        die();
+    }
 
     $power1=in_array('s1',$_POST['capabilities']) ? '1' : '0';
     $power2=in_array('s2',$_POST['capabilities']) ? '1' : '0';
@@ -112,7 +117,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
             <form method="POST" action="adminroom.php">
                 <div class="select_user">
                     <select name="select_user" id="selector_user">
-                    <option selected disabled>Выбрать пользователя</option>
+                    <option selected disabled value ="0">Выбрать пользователя</option>
                         <?php
                         for($index =1 ;$index <= $count;$index++){
                             $check_user = mysqli_query($connect, "SELECT * FROM users WHERE id = $index");
@@ -131,7 +136,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
 
                 <div class="select_power">
                     <select name ="select_power" id = "selector_power">
-                        <option selected disabled>Выбрать способность</option>
+                        <option selected disabled value ="0">Выбрать способность</option>
                         <option value ="immortal">бессмертие</option>
                         <option value ="noclip">прохождение сквозь стены</option>
                         <option value ="flying">левитация</option>
@@ -146,6 +151,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
 
 
                         $user_power =  mysqli_real_escape_string($connect ,$_POST['select_power']);
+
+                        if($user_power == 0){
+                            die();
+                        }
+
                         $check_powers = mysqli_query($connect, "SELECT superabilities FROM super_power WHERE superabilities LIKE '%$user_power%'");
                         $num_power = mysqli_num_rows($check_powers);
 
@@ -163,6 +173,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
 <?php
     if(isset($_POST['edit_user']) && $_SERVER['REQUEST_METHOD'] == 'POST'){
         $user_id =  mysqli_real_escape_string($connect ,$_POST['select_user']);
+
+
+        if($user_id == 0){
+            die();
+        }
+
         $check_user = mysqli_query($connect, "SELECT * FROM users WHERE id = '$user_id'");
         $user = mysqli_fetch_assoc($check_user);
 
@@ -181,7 +197,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
     }
         ?>
         <?php
-        if(isset($_POST['edit_user'])){?>
+        if(isset($_POST['edit_user'])){
+
+            if($user_id == 0){
+                die();
+            }
+            ?>
             <div class = "wrapper">
                 <form method = "POST" action = "adminroom.php">
                     <div>
