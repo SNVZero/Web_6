@@ -12,11 +12,7 @@ $res = $db->query("SELECT max(id) FROM users");
 $row = $res->fetch();
 $count = (int) $row[0];
 
-if($_SERVER['REQUEST_METHOD'] == 'POST' && is_null(@$_POST['delete_user'])){
-
-    die();
-
-}else if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
+if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
 
 
 
@@ -32,11 +28,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && is_null(@$_POST['delete_user'])){
 
 
 }
-if($_SERVER['REQUEST_METHOD'] == 'POST' && is_null(@$_POST['edit'])){
-
-    die();
-
-}if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit'])){
+if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit'])){
 
 
 
