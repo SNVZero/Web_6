@@ -96,8 +96,8 @@ body{
     color: white;
 }
 
-.webform #comment {
-    height: 150px;
+#comment {
+    height: 128px;
     position: relative;
     margin-bottom: 12px;
     padding-bottom: 65px;
