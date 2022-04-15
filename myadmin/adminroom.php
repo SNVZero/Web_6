@@ -12,7 +12,7 @@ $res = $db->query("SELECT max(id) FROM users");
 $row = $res->fetch();
 $count = (int) $row[0];
 
-if($_SERVER['REQUEST_METHOD'] == 'POST' && isset(@$_POST['delete_user'])){
+if($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null(@$_POST['delete_user'])){
 
 
 
@@ -28,7 +28,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset(@$_POST['delete_user'])){
 
 
 }
-if($_SERVER['REQUEST_METHOD'] == 'POST' && isset(@$_POST['edit'])){
+if($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null(@$_POST['edit'])){
 
 
 
@@ -162,7 +162,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset(@$_POST['edit'])){
     </div>
 
 <?php
-    if(isset($_POST['edit_user']) && $_SERVER['REQUEST_METHOD'] == 'POST'){
+    if(!is_null(@$_POST['edit_user']) && $_SERVER['REQUEST_METHOD'] == 'POST'){
         $user_id =  mysqli_real_escape_string($connect ,$_POST['select_user']);
         $check_user = mysqli_query($connect, "SELECT * FROM users WHERE id = '$user_id'");
         $user = mysqli_fetch_assoc($check_user);
@@ -182,7 +182,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset(@$_POST['edit'])){
     }
         ?>
         <?php
-        if(isset(@$_POST['edit_user'])){?>
+        if(!is_null(@$_POST['edit_user'])){?>
             <div class = "wrapper">
                 <form method = "POST" action = "adminroom.php">
                     <div>
