@@ -138,7 +138,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
 
                 <div class="select_power">
                     <select name ="select_power" id = "selector_power">
-                        <option selected disabled value ="0">Выбрать способность</option>
+                        <option selected disabled value ="1">Выбрать способность</option>
                         <option value ="immortal">бессмертие</option>
                         <option value ="noclip">прохождение сквозь стены</option>
                         <option value ="flying">левитация</option>
@@ -151,7 +151,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
                 <?php
                     if(isset($_POST['num_power']) && $_SERVER['REQUEST_METHOD'] == 'POST'){
 
-                        if((int)$_POST['select_user'] == 0){
+                        if($_POST['select_power'] == "1"){
                             header('Location: adminroom.php');
                          }
 
