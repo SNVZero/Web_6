@@ -27,7 +27,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
 
 
 
-}else if($_SERVER['REQUEST_METHOD'] == 'POST' && isset(@$_POST['edit'])){
+}else if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit'])){
 
 
 
