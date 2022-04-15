@@ -28,11 +28,15 @@ body{
 }
 
 .slc_user, .slc_power{
-    background:linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(59,59,59,1) 59%);
+    background: none;
     color: #FFFFFF;
 
     width: 830px;
     height: 32px;
+}
+
+.slc_user select, .slc_power select {
+   color: black;
 }
 
 
