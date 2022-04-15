@@ -1,43 +1,44 @@
 <?php
 
-if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])){
-    require "../connect/connection.php";
-// функционал комнаты админа, разобраться с автоинкерментом для этого изменить структуру таблицы  чтоб она брала максимальный столбец и записывала его в id
+if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])){//Если HTTP-авторизация пройдена дает доступ к странице админа иначе идет перенаправление на главную страницу
+    require "../connect/connection.php";//Файл с подключение к базе данных с помощью mysqli
 
+
+//Подключение к базе данных с помощью PDO
 $user = 'u46878';
 $pass = '2251704';
 $db = new PDO('mysql:host=localhost;dbname=u46878', $user, $pass, array(PDO::ATTR_PERSISTENT => true));
 
 $res = $db->query("SELECT max(id) FROM users");
 $row = $res->fetch();
-$count = (int) $row[0];
+$count = (int) $row[0];//Берем максимальный айди среди пользователей для заполнения списка пользователей
 
-if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
+if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){//Если была нажата кнопка удалить пользователя
 
-    if($_POST['select_user'] == 0){
+    if($_POST['select_user'] == 0){//Обработчик того был ли выбран пользователь
         header('Location: adminroom.php');
     }
 
 
 
-    $user_id =  mysqli_real_escape_string($connect ,$_POST['select_user']);
+    $user_id =  mysqli_real_escape_string($connect ,$_POST['select_user']);//Получение айди выбраного польвователя
 
-
+    //Удаление выбранного пользователя
     $sql = "DELETE FROM users WHERE id = '$user_id'";
     mysqli_query($connect, $sql);
-
+    //Удаление всех выбраных им суперспособностей
     $sql = "DELETE FROM super_power WHERE id = '$user_id'";
     mysqli_query($connect, $sql);
 
 
 
 
-}else if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit'])){
+}else if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit'])){//Если была нажата кнопка изменить данные пользователя
 
-    if($_POST['select_user'] == 0){
+    if($_POST['select_user'] == 0){//Обработчик того был ли выбран пользователь
        header('Location: adminroom.php');
     }
-
+    //Берем данные об измененных способностях
     $power1=in_array('s1',$_POST['capabilities']) ? '1' : '0';
     $power2=in_array('s2',$_POST['capabilities']) ? '1' : '0';
     $power3=in_array('s3',$_POST['capabilities']) ? '1' : '0';
@@ -67,7 +68,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
     }
 
 
-    try{//Блок изменения данных о пользователе,которые он предпочел изменить
+    try{//Блок изменения данных пользователя введеных админом
 
         $id = $_COOKIE['id'];
 
@@ -103,7 +104,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
 
 
 <body class = "body">
-
+<!--Кнопка выхода со страницы админа -->
     <div class="header">
         <header>
             <div class="top">
@@ -114,6 +115,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
             </div>
         </header>
     </div>
+    <!--Блок в котором хранятся возможности администратора-->
     <div class="wrapper">
         <div class="main_content">
             <form method="POST" action="adminroom.php">
@@ -121,11 +123,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
                     <select name="select_user" class ="slc_user" id="selector_user">
                     <option selected disabled value ="0">Выбрать пользователя</option>
                         <?php
-                        for($index =1 ;$index <= $count;$index++){
+                        for($index =1 ;$index <= $count;$index++){//Заполнение списка пользователями
                             $check_user = mysqli_query($connect, "SELECT * FROM users WHERE id = $index");
                             $user = mysqli_fetch_assoc($check_user);
-                            if($user['id'] == $index){
-                                print("<option value =" . $index . ">" . "id : ". $user['id'] . " Имя : " . $user['name'] . " Почта : ". $user['mail'] . " Дата рождения : ". $user['date'] . " Пол : ". $user['gender'] . " Кол. конечностей : ". $user['limbs']  ."</option>");
+                            if($user['id'] == $index){//Проверка на существование пользователя с айди index
+                                print("<option value =" . $index . ">" . "id : ". $user['id'] . " Имя : " . $user['name'] . " Почта : ". $user['mail'] . " Дата рождения : ". $user['date'] . " Пол : ". $user['gender'] . " Кол. конечностей : ". $user['limbs']  ."</option>");//Добавление в список пользователя с существующим айди
                             }
                         }
                         ?>
@@ -135,7 +137,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
                     <button name ="edit_user" class="btn_edit" type = "submit">Редактировать пользователя</button>
                     <button name ="delete_user" class="btn_delete" type = "submit">Удалить пользователя</button>
                 </div>
-
+                <!--Блок со списком суперспособностей-->
                 <div class="select_power">
                     <select name ="select_power" class ="slc_power" id = "selector_power">
                         <option value ="1" selected disabled>Выбрать способность</option>
@@ -149,47 +151,43 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
                     <button name ="num_power" class ="btn_power" type = "submit">Показать количество способностей</button>
                 </div>
                 <?php
-                    if(isset($_POST['num_power']) && $_SERVER['REQUEST_METHOD'] == 'POST'){
+                    if(isset($_POST['num_power']) && $_SERVER['REQUEST_METHOD'] == 'POST'){//Если была нажата кнопка показать количество способностей
 
-                        if( !isset($_POST['select_power'])){
+                        if( !isset($_POST['select_power'])){//Обработчик того была ли выбрана способность
                             header('Location: adminroom.php');
                          }
 
-                        $user_power =  mysqli_real_escape_string($connect ,$_POST['select_power']);
+                        $user_power =  mysqli_real_escape_string($connect ,$_POST['select_power']);//Запоминаем выбранную способность
 
 
-                        $check_powers = mysqli_query($connect, "SELECT superabilities FROM super_power WHERE superabilities LIKE '%$user_power%'");
-                        $num_power = mysqli_num_rows($check_powers);
+                        $check_powers = mysqli_query($connect, "SELECT superabilities FROM super_power WHERE superabilities LIKE '%$user_power%'");//Ищем пользователей с данной способностью по образцу
+                        $num_power = mysqli_num_rows($check_powers);//Берем количество таких пользователей
 
                         print("<div class=" ."num_power" .">
                         <p>Количество людей со способностью " . $_POST['select_power'] . " : " . $num_power."
-                        </div>");
+                        </div>");//Вывод количества пользователей
                     }
                 ?>
             </form>
-
-
         </div>
     </div>
 
 <?php
-    if(isset($_POST['edit_user']) && $_SERVER['REQUEST_METHOD'] == 'POST'){
+    if(isset($_POST['edit_user']) && $_SERVER['REQUEST_METHOD'] == 'POST'){//Если была нажата кнопка изменить пользователя
 
-        if($_POST['select_user'] == 0){
+        if($_POST['select_user'] == 0){//Обработчик того был ли выбран пользователь
             header('Location: adminroom.php');
         }
 
-
+        //Получение данных из таблиц БД для дальнейшего изменения этих данных
         $user_id =  mysqli_real_escape_string($connect ,$_POST['select_user']);
-
-
         $check_user = mysqli_query($connect, "SELECT * FROM users WHERE id = '$user_id'");
         $user = mysqli_fetch_assoc($check_user);
 
         $check_power = mysqli_query($connect, "SELECT * FROM super_power WHERE human_id = '$user_id'");
         $power =mysqli_fetch_assoc($check_power);
 
-        setcookie('id',$user['id']);
+        setcookie('id',$user['id']);//Установка куки айди для последующего нахождения пользователя с данным айди и изменения его данных
 
 
         $value_ability = explode(',',$power['superabilities']);
@@ -201,13 +199,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
     }
         ?>
         <?php
-        if(isset($_POST['edit_user'])){
+        if(isset($_POST['edit_user'])){//Если была нажата кнопка изменить пользователя выводим таблицу с информацией о пользователе
 
-            if($_POST['select_user']== 0){
+            if($_POST['select_user']== 0){//Обработчик того был ли выбран пользователь
                 header('Location: adminroom.php');
             }
 
             ?>
+            <!--Таблица с данными пользователя в которой можно изменить данные для последующей перезаписи их в БД-->
             <div class = "wrapper">
                 <form method = "POST" action = "adminroom.php">
                     <div>
