@@ -35,7 +35,7 @@ body{
     height: 32px;
 }
 
-.slc_user select, .slc_power select {
+.slc_user option, .slc_power option {
    color: black;
 }
 
