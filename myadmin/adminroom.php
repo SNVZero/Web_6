@@ -151,7 +151,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
                 <?php
                     if(isset($_POST['num_power']) && $_SERVER['REQUEST_METHOD'] == 'POST'){
 
-
+                        if((int)$_POST['select_user'] == 0){
+                            header('Location: adminroom.php');
+                         }
 
                         $user_power =  mysqli_real_escape_string($connect ,$_POST['select_power']);
 
