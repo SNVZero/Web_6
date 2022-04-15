@@ -96,6 +96,21 @@ body{
     color: white;
 }
 
+.webform #comment {
+    height: 128px;
+    position: relative;
+    margin-bottom: 12px;
+    padding-bottom: 65px;
+}
+
+.date_of_birth, .gender, .limbs, .capabilities{
+    padding-top: 20px ;
+    margin-left: auto;
+}
+.capabilities{
+    padding-bottom: 20px;
+}
+
 .webform__form-btn {
     text-transform: uppercase;
     color: white;
