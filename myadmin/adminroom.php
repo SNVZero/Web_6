@@ -118,7 +118,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
         <div class="main_content">
             <form method="POST" action="adminroom.php">
                 <div class="select_user">
-                    <select name="select_user" id="selector_user">
+                    <select name="select_user" class ="slc_user" id="selector_user">
                     <option selected disabled value ="0">Выбрать пользователя</option>
                         <?php
                         for($index =1 ;$index <= $count;$index++){
@@ -137,7 +137,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
                 </div>
 
                 <div class="select_power">
-                    <select name ="select_power" id = "selector_power">
+                    <select name ="select_power" class ="slc_power" id = "selector_power">
                         <option value ="1" selected disabled>Выбрать способность</option>
                         <option value ="immortal">бессмертие</option>
                         <option value ="noclip">прохождение сквозь стены</option>
