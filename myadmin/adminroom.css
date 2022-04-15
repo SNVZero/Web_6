@@ -27,13 +27,14 @@ body{
     padding-bottom: 40px;
 }
 
-.slc_user{
+.slc_user, .slc_power{
+    background:linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(59,59,59,1) 59%);
+    color: #FFFFFF;
+
     width: 830px;
+    height: 32px;
 }
 
-.slc_power{
-    width: 230px;
-}
 
 .btn_action{
 
