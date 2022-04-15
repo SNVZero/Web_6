@@ -70,3 +70,44 @@ body{
 .num_power{
     color: #FFFFFF;
 }
+
+.webform__form-elem {
+    background: transparent;
+    border: 1px solid rgba(256,256,256,.3);
+
+    line-height: 1.2;
+    font-weight: 500;
+    padding: 26px 24px;
+    color: #fff;
+
+    font-size: 14px;
+    width: 480px;
+    height: 54px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding-left: 24px;
+
+    margin-bottom: 8px;
+    transition: 0.4s;
+    margin-left: auto;
+}
+
+.webform__form-elem::placeholder {
+    color: white;
+}
+
+.webform__form-btn {
+    text-transform: uppercase;
+    color: white;
+    width: 480px;
+    height: 60px;
+    border: 2px solid #f14d34;
+    border-radius: 5px;
+    background: #f14d34;
+    transition: 0.4s;
+    font-size: 12px;
+}
+
+.webform__form-btn:hover {
+    background: none;
+}
