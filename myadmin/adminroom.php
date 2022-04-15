@@ -138,7 +138,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
 
                 <div class="select_power">
                     <select name ="select_power" id = "selector_power">
-                        <option selected disabled value ="1">Выбрать способность</option>
+                        <option value ="1" selected disabled>Выбрать способность</option>
                         <option value ="immortal">бессмертие</option>
                         <option value ="noclip">прохождение сквозь стены</option>
                         <option value ="flying">левитация</option>
