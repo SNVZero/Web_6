@@ -30,9 +30,13 @@ body{
 .slc_user, .slc_power{
     background: none;
     color: #FFFFFF;
+    border: 1px solid;
 
     width: 830px;
     height: 32px;
+}
+.slc_power{
+    height: 240px;
 }
 
 .slc_user option, .slc_power option {
