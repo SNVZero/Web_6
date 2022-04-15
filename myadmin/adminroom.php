@@ -12,7 +12,7 @@ $res = $db->query("SELECT max(id) FROM users");
 $row = $res->fetch();
 $count = (int) $row[0];
 
-if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
+if($_SERVER['REQUEST_METHOD'] == 'POST' && isset(@$_POST['delete_user'])){
 
 
 
@@ -28,7 +28,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
 
 
 }
-if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit'])){
+if($_SERVER['REQUEST_METHOD'] == 'POST' && isset(@$_POST['edit'])){
 
 
 
@@ -88,7 +88,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit'])){
 <!Doctype html>
 
 <head>
-    <link rel="stylesheet" href="adminroom.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <link rel="stylesheet" href="adminroom.css">
@@ -183,7 +182,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit'])){
     }
         ?>
         <?php
-        if(isset($_POST['edit_user'])){?>
+        if(isset(@$_POST['edit_user'])){?>
             <div class = "wrapper">
                 <form method = "POST" action = "adminroom.php">
                     <div>
