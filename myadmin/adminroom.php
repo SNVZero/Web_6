@@ -14,12 +14,14 @@ $count = (int) $row[0];
 
 if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
 
+    if($_POST['select_user'] == 0){
+        header('Location: adminroom.php');
+    }
+
 
 
     $user_id =  mysqli_real_escape_string($connect ,$_POST['select_user']);
-    if($user_id == 0){
-        die();
-    }
+
 
     $sql = "DELETE FROM users WHERE id = '$user_id'";
     mysqli_query($connect, $sql);
@@ -32,8 +34,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
 
 }else if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit'])){
 
-    if($_POST['select_user']== 0){
-        die();
+    if($_POST['select_user'] == 0){
+       header('Location: adminroom.php');
     }
 
     $power1=in_array('s1',$_POST['capabilities']) ? '1' : '0';
@@ -172,12 +174,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
 
 <?php
     if(isset($_POST['edit_user']) && $_SERVER['REQUEST_METHOD'] == 'POST'){
+
+        if($_POST['select_user'] == 0){
+            header('Location: adminroom.php');
+        }
+
+
         $user_id =  mysqli_real_escape_string($connect ,$_POST['select_user']);
 
-
-        if($user_id == 0){
-            die();
-        }
 
         $check_user = mysqli_query($connect, "SELECT * FROM users WHERE id = '$user_id'");
         $user = mysqli_fetch_assoc($check_user);
@@ -199,9 +203,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
         <?php
         if(isset($_POST['edit_user'])){
 
-            if($user_id == 0){
-                die();
+            if($_POST['select_user']== 0){
+                header('Location: adminroom.php');
             }
+
             ?>
             <div class = "wrapper">
                 <form method = "POST" action = "adminroom.php">
