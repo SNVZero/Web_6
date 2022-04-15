@@ -12,7 +12,7 @@ $res = $db->query("SELECT max(id) FROM users");
 $row = $res->fetch();
 $count = (int) $row[0];
 
-if($_SERVER['REQUEST_METHOD'] == 'POST' && is_null($_POST['delete_user'])){
+if($_SERVER['REQUEST_METHOD'] == 'POST' && is_null(@$_POST['delete_user'])){
 
     die();
 
@@ -32,7 +32,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && is_null($_POST['delete_user'])){
 
 
 }
-if($_SERVER['REQUEST_METHOD'] == 'POST' && is_null($_POST['edit'])){
+if($_SERVER['REQUEST_METHOD'] == 'POST' && is_null(@$_POST['edit'])){
 
     die();
 
@@ -105,7 +105,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && is_null($_POST['edit'])){
 </head>
 
 
-<body>
+<body class = "body">
 
     <div class="header">
         <header>
@@ -135,8 +135,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && is_null($_POST['edit'])){
                     </select>
                 </div>
                 <div class="btn_action">
-                    <button name ="edit_user" class = "btn_edit" type = "submit">Редактировать пользователя</button>
-                    <button name ="delete_user" class = "btn_delete" type = "submit">Удалить пользователя</button>
+                    <button name ="edit_user" class="btn_edit" type = "submit">Редактировать пользователя</button>
+                    <button name ="delete_user" class="btn_delete" type = "submit">Удалить пользователя</button>
                 </div>
 
                 <div class="select_power">
