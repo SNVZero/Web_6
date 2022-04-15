@@ -327,7 +327,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
                         <input class="webform__form-btn" type="submit" name="edit" value="Изменить данные пользователя">
                     </div>
                     <div>
-                        <button clas = "btn_calcel"><a class="cencel" href ="adminroom.php">Отменить редактирование</a></butto>
+                        <button class = "btn_cencel"><a class="cencel" href ="adminroom.php">Отменить редактирование</a></butto>
                     </div>
                 </form>
             </div>
