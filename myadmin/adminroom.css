@@ -28,7 +28,7 @@ body{
 }
 
 .slc_user{
-    width: 430px;
+    width: 830px;
 }
 
 .slc_power{
@@ -45,9 +45,9 @@ body{
     width: 410px;
     height: 60px;
 
-    border: 2px solid #e1ff21;
+    border: 2px solid #c9c30c;
     border-radius: 5px;
-    background: #e1ff21;
+    background: #c9c30c;
     transition: 0.4s;
     color: white;
 
