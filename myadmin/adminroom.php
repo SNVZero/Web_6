@@ -151,7 +151,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_user'])){
                 <?php
                     if(isset($_POST['num_power']) && $_SERVER['REQUEST_METHOD'] == 'POST'){
 
-                        if($_POST['select_power'] == "1"){
+                        if( !isset($_POST['select_power'])){
                             header('Location: adminroom.php');
                          }
 
