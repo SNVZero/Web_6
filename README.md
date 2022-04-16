@@ -13,7 +13,7 @@ CREATE TABLE users (
      PRIMARY KEY (id)  
      );  
 
- CREATE TABLE super_power ( 
+ CREATE TABLE super_power (   
      id int(10) unsigned NOT NULL AUTO_INCREMENT,  
      human_id int(10) unsigned NOT NULL,  
      superabilities VARCHAR(128) NOT NULL,  
