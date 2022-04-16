@@ -64,7 +64,7 @@
                             </div>
                             <div>
                                 <input class="webform__form-elem form__input _req"  id="names" type="text" name="name"
-                                    placeholder="Имя" value= "<?php print($value['name']); ?>" >
+                                    placeholder="Имя" value= "<?php print(e($value['name'])); ?>" >
                                     <div class="text-danger err "
                                         <?php
                                             if(!$error['name_empty'] && !$error['name']){
@@ -83,7 +83,7 @@
                             </div>
                              <div>
                                 <input class="webform__form-elem form__input _req _email" id="email" type="email" name="email"
-                                        placeholder="E-mail" value= "<?php print($value['email']); ?>">
+                                        placeholder="E-mail" value= "<?php print(e($value['email'])); ?>">
                                         <div class="text-danger err "
                                         <?php
                                             if(!$error['email_empty'] && !$error['email']){
@@ -101,7 +101,7 @@
                                     </div>
                             </div>
                             <div>
-                                <textarea id="comment" class="webform__form-elem form__input _req" type="text" name="bio" placeholder="Биография" ><?php print($value['bio']); ?></textarea>
+                                <textarea id="comment" class="webform__form-elem form__input _req" type="text" name="bio" placeholder="Биография" ><?php print(e($value['bio'])); ?></textarea>
                                 <div class="text-danger err "
                                     <?php
                                         if(!$error['bio']){
@@ -118,7 +118,7 @@
                             </div>
                             <div class="form_item form-group">
                                 <label for="formDate" style="color: white;">Дата рождения:</label>
-                                <input type="date" class="form_input form__input _req form-control w-50  bg-white rounded" name="year" id="dates" value="<?php print($value['year']); ?>">
+                                <input type="date" class="form_input form__input _req form-control w-50  bg-white rounded" name="year" id="dates" value="<?php print(e($value['year'])); ?>">
                                 <div class="text-danger err "
                                 <?php
                                         if(!$error['year']){
@@ -138,7 +138,7 @@
                                 <div>
                                     <input type="radio" id="male" name="gender" value="m"
                                         <?php
-                                            if($value['gender'] == 'm'){
+                                            if(e($value['gender']) == 'm'){
                                                 print('checked');
                                             }
                                         ?>
@@ -148,7 +148,7 @@
                                 <div>
                                     <input type="radio" id="female"name="gender" value="f"
                                         <?php
-                                            if($value['gender'] == 'f'){
+                                            if(e($value['gender']) == 'f'){
                                                 print('checked');
                                             }
                                         ?>
@@ -173,7 +173,7 @@
                                 <label>Количество конечностей :</label>
                                 <input type="radio" id="2" name="limbs" value="2"
                                     <?php
-                                        if($value['limbs'] == '2'){
+                                        if(e($value['limbs']) == '2'){
                                             print('checked');
                                         }
                                         ?>
@@ -181,7 +181,7 @@
                                 <label for="2" id="2">2</label>
                                 <input type="radio" id="4" name="limbs" value="4"
                                         <?php
-                                            if($value['limbs'] == '4'){
+                                            if(e($value['limbs']) == '4'){
                                                 print('checked');
                                             }
                                         ?>
@@ -189,7 +189,7 @@
                                 <label for="4" id="4">4</label>
                                 <input type="radio" id="8" name="limbs" value="8"
                                     <?php
-                                        if($value['limbs'] == '8'){
+                                        if(e($value['limbs']) == '8'){
                                             print('checked');
                                         }
                                     ?>
@@ -197,7 +197,7 @@
                                 <label for="8" id="8">8</label>
                                 <input type="radio" id="16" name="limbs" value="16"
                                     <?php
-                                        if($value['limbs'] == '16'){
+                                        if(e($value['limbs']) == '16'){
                                             print('checked');
                                         }
                                     ?>

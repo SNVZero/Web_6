@@ -586,4 +586,9 @@ function generatePassword($length = 6){//Функция создания ран�
     return $password;
   }
 
+  function e($string)//Функция проверки на JS, HTML и PHP символы
+{
+    return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
+}
+
 ?>

@@ -1,5 +1,5 @@
 <?php
-session_start();//Старт сесси
+
 if($_SERVER['REQUEST_METHOD'] == 'GET'){//GET запрос для проверки логина и пароля
     $_SESSION['message'] = FALSE;
     $mess = empty($_COOKIE['message']) ? '0' : $_COOKIE['message'];
@@ -15,6 +15,7 @@ $check_user = mysqli_query($connect, "SELECT * FROM users WHERE login = '$login'
 if(mysqli_num_rows($check_user) > 0){//Проверка на то существует ли такой логин
     $user = mysqli_fetch_assoc($check_user);//Берем именнованые поля у совпадающего логина
     if(password_verify($password,$user['pass'])){// Проверка на совпадение пароля из таблицы с введеным
+        session_start();//Старт сессии
         $id = $user['id'];//берем айди логина
         $check_power = mysqli_query($connect, "SELECT * FROM super_power WHERE human_id = $id");//Проверяем наличие способностей
         $power =mysqli_fetch_assoc($check_power);//берем эти способности
