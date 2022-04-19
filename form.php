@@ -63,7 +63,11 @@
                                 ?>
                             </div>
                             <div>
-                                <input class="webform__form-elem form__input _req"  id="names" type="text" name="name"
+                                <input class="webform__form-elem form__input _req <?php
+                                                    if($message['name_empty'] == TRUE || $message['name'] == TRUE){
+                                                    print('_error');
+                                                    }
+                                                ?>"  id="names" type="text" name="name"
                                     placeholder="Имя" value= "<?php print(e($value['name'])); ?>" >
                                     <div class="text-danger err "
                                         <?php
@@ -82,7 +86,11 @@
                                     </div>
                             </div>
                              <div>
-                                <input class="webform__form-elem form__input _req _email" id="email" type="email" name="email"
+                                <input class="webform__form-elem form__input _req _email <?php
+                                                    if($message['email_empty'] == TRUE || $message['email'] == TRUE){
+                                                    print('_error');
+                                                    }
+                                                ?>" id="email" type="email" name="email"
                                         placeholder="E-mail" value= "<?php print(e($value['email'])); ?>">
                                         <div class="text-danger err "
                                         <?php
@@ -101,7 +109,11 @@
                                     </div>
                             </div>
                             <div>
-                                <textarea id="comment" class="webform__form-elem form__input _req" type="text" name="bio" placeholder="Биография" ><?php print(e($value['bio'])); ?></textarea>
+                                <textarea id="comment" class="webform__form-elem form__input _req <?php
+                                                    if($message['bio'] == TRUE){
+                                                    print('_error');
+                                                    }
+                                                ?> " type="text" name="bio" placeholder="Биография" ><?php print(e($value['bio'])); ?></textarea>
                                 <div class="text-danger err "
                                     <?php
                                         if(!$error['bio']){
@@ -118,7 +130,10 @@
                             </div>
                             <div class="form_item form-group">
                                 <label for="formDate" style="color: white;">Дата рождения:</label>
-                                <input type="date" class="form_input form__input _req form-control w-50  bg-white rounded" name="year" id="dates" value="<?php print(e($value['year'])); ?>">
+                                <input type="date" class="form_input form__input _req form-control w-50  bg-white rounded <?php
+                                if($message['year'] == TRUE){
+                                    print('_error');
+                                    }?>" name="year" id="dates" value="<?php print(e($value['year'])); ?>">
                                 <div class="text-danger err "
                                 <?php
                                         if(!$error['year']){
@@ -263,7 +278,9 @@
                                 </div>
                             </div>
                             <div class="form__checkbox">
-                                <input class="checkbox__input _req" type="checkbox" id="userAgreement"  name="agree"
+                                <input class="checkbox__input _req <?php if($message['agree'] == TRUE){
+                                                    print('_error');
+                                                    }?>"  type="checkbox" id="userAgreement"  name="agree"
                                     <?php
                                         if($value['agree']){
                                             print('checked');
