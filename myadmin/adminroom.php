@@ -2,12 +2,10 @@
 
 if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])){//Если HTTP-авторизация пройдена дает доступ к странице админа иначе идет перенаправление на главную страницу
     require "../connect/connection.php";//Файл с подключение к базе данных с помощью mysqli
-
+    require "../connect/db.php";
 
 //Подключение к базе данных с помощью PDO
-$user = 'u46878';
-$pass = '2251704';
-$db = new PDO('mysql:host=localhost;dbname=u46878', $user, $pass, array(PDO::ATTR_PERSISTENT => true));
+
 
 $res = $db->query("SELECT max(id) FROM users");
 $row = $res->fetch();
